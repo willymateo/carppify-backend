@@ -27,38 +27,42 @@ const createVehicle = async (req, res) => {
 
 const updateVehicle = async (req, res) => {
   try {
-    const vehicle = await Vehicle.findById(req.params.id);
-    if (vehicle == null) {
-      return res.status(404).json({ message: "Cannot find vehicle" });
+    const { id } = req.params;
+    const vehicle = await Vehicle.findByPk(id);
+    const { driver_id, plate, model, type, capacity } = req.body;
+
+    // Vehicle not found
+    if (!vehicle) {
+      return res.status(404).json({ error: "Vehicle not found" });
     }
-    if (req.body.driver != null) {
-      vehicle.driver = req.body.driver;
+
+    if (driver_id) {
+      vehicle.set({ driver_id });
     }
-    if (req.body.plate != null) {
-      vehicle.plate = req.body.plate;
+    if (plate) {
+      vehicle.set({ plate });
     }
-    if (req.body.model != null) {
-      vehicle.model = req.body.model;
+    if (model) {
+      vehicle.set({ model });
     }
-    if (req.body.brand != null) {
-      vehicle.brand = req.body.brand;
+    if (type) {
+      vehicle.set({ type });
     }
-    if (req.body.year != null) {
-      vehicle.year = req.body.year;
+    if (capacity) {
+      vehicle.set({ capacity });
     }
-    if (req.body.color != null) {
-      vehicle.color = req.body.color;
-    }
-    if (req.body.type != null) {
-      vehicle.type = req.body.type;
-    }
-    if (req.body.status != null) {
-      vehicle.status = req.body.status;
-    }
-    const updatedVehicle = await vehicle.save();
-    res.json(updatedVehicle);
+
+    await vehicle.validate();
+    await vehicle.save();
+    return res.status(200).send({
+      message: "Vehicle updated successfully",
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(
+      "Some error ocurred in updateVehicle method of vehicle controller",
+      error
+    );
+    return res.status(409).send({ error: "Some error ocurred" });
   }
 };
 
@@ -67,7 +71,7 @@ const deleteVehicle = async (req, res) => {
     const { id } = req.params;
     const vehicle = await Vehicle.findByPk(id);
     if (!vehicle) {
-      return res.status(404).send({ error: "Cannot find vehicle" });
+      return res.status(404).send({ error: "Vehicle not found" });
     }
     await vehicle.destroy();
     return res.status(200).send({ message: "Deleted vehicle" });
