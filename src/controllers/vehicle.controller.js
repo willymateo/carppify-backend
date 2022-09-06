@@ -1,12 +1,27 @@
 import { Vehicle } from "../db/models/vehicle.js";
 
 const createVehicle = async (req, res) => {
-  const vehicle = new Vehicle(req.body);
   try {
-    const newVehicle = await vehicle.save();
-    res.status(201).json(newVehicle);
+    const data = req.body;
+    const vehicle = Vehicle.build(data);
+
+    // Validate data
+    await vehicle.validate();
+    // Save the register in the DB
+    await vehicle.save();
+
+    return res.status(201).send({
+      message: "Vehicle created successfully",
+      id: vehicle.id,
+    });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.log(
+      "Some error ocurred in createVehicle method of vehicle controller",
+      error
+    );
+    return res
+      .status(409)
+      .send({ error: "Some error ocurred while creating the vehicle" });
   }
 };
 
