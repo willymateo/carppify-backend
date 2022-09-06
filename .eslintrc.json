@@ -1,0 +1,33 @@
+{
+  "env": {
+    "node": true,
+    "es2021": true
+  },
+  "extends": ["google", "prettier"],
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "new-cap": ["error", { "capIsNew": false }],
+    "require-jsdoc": "off",
+    "valid-jsdoc": "off",
+    "semi": ["error", "always"],
+    "quotes": [
+      "warn",
+      "double",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ],
+    "no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "all"
+      }
+    ]
+  }
+}

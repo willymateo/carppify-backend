@@ -5,23 +5,34 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/willymateo/carppify-backend.git"
+    "prepare": "husky install",
+    "start": "NODE_ENV=production node src/index.js",
+    "start:dev": "NODE_ENV=development nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier:write": "prettier --write . --ignore-unknown",
+    "prettier:check": "prettier --check ."
   },
   "keywords": [
     "car"
   ],
   "author": "Willy Mateo Espinoza",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/willymateo/carppify-backend/issues"
-  },
-  "homepage": "https://github.com/willymateo/carppify-backend#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-list-routes": "^1.1.3",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.21.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "husky": "^8.0.1",
+    "nodemon": "^2.0.19",
+    "prettier": "2.7.1",
+    "sequelize-auto": "^0.8.8"
   }
 }
