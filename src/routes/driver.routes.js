@@ -1,9 +1,9 @@
-import { Router } from "express";
 import { getVehicles } from "../controllers/driver.controller.js";
+import { Router } from "express";
 
 const router = Router();
 
 // Get vehicles
-router.post("/:idDriver/vehicles", getVehicles);
+router.get("/:idDriver/vehicles", getVehicles);
 
 export default router;
