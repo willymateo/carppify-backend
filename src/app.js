@@ -2,7 +2,6 @@ import express from "express";
 import logger from "morgan";
 import "dotenv/config";
 
-
 const app = express();
 app.set("case sensitive routing", true);
 
@@ -17,7 +16,7 @@ app.get("/", (req, res) => {
     environment: process.env.NODE_ENV,
     name: "carppify",
     author: "Willy Mateo Espinoza",
-    version: "1.0.0"
+    version: "1.0.0",
   });
 });
 
