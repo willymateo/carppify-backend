@@ -1,4 +1,6 @@
 import { morganFormat, env } from "./config/app.config.js";
+import vehicleRouter from "./routes/vehicle.routes.js";
+import driverRouter from "./routes/driver.routes.js";
 import express from "express";
 import logger from "morgan";
 import cors from "cors";
@@ -21,5 +23,7 @@ app.get("/", (req, res) => {
     version: "1.0.0",
   });
 });
+app.use("/api/driver", driverRouter);
+app.use("/api/vehicles", vehicleRouter);
 
 export { app };

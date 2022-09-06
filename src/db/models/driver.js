@@ -1,4 +1,4 @@
-import { sequelize } from "../connection";
+import { sequelize } from "../connection.js";
 import { DataTypes } from "sequelize";
 
 const Driver = sequelize.define(
