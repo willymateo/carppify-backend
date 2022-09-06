@@ -3,7 +3,7 @@ import { Router } from "express";
 
 const router = Router();
 
-// Get vehicles
-router.get("/:idDriver/vehicles", getVehicles);
+// Get all vehicles by driver id
+router.get("/:id/vehicles", getVehicles);
 
 export default router;

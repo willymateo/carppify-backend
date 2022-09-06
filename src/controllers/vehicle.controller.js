@@ -1,14 +1,5 @@
 import { Vehicle } from "../db/models/vehicle.js";
 
-const getVehiclesByDriver = async (req, res) => {
-  try {
-    const vehicles = await Vehicle.find({ driver: req.body.driver });
-    res.json(vehicles);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 const createVehicle = async (req, res) => {
   const vehicle = new Vehicle(req.body);
   try {
@@ -58,15 +49,20 @@ const updateVehicle = async (req, res) => {
 
 const deleteVehicle = async (req, res) => {
   try {
-    const vehicle = await Vehicle.findById(req.params.id);
-    if (vehicle == null) {
-      return res.status(404).json({ message: "Cannot find vehicle" });
+    const { id } = req.params;
+    const vehicle = await Vehicle.findByPk(id);
+    if (!vehicle) {
+      return res.status(404).send({ error: "Cannot find vehicle" });
     }
-    await vehicle.remove();
-    res.json({ message: "Deleted vehicle" });
+    await vehicle.destroy();
+    return res.status(200).send({ message: "Deleted vehicle" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(
+      "Some error ocurred in deleteVehicle method of vehicle controller",
+      error
+    );
+    return res.status(409).send({ error: "Some error ocurred" });
   }
 };
 
-export { getVehiclesByDriver, createVehicle, updateVehicle, deleteVehicle };
+export { createVehicle, updateVehicle, deleteVehicle };

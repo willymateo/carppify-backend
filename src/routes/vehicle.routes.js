@@ -11,9 +11,9 @@ const router = Router();
 router.post("/", createVehicle);
 
 // Update a vehicle
-router.put("/:idVehicle", updateVehicle);
+router.put("/:id", updateVehicle);
 
 // Delete a vehicle
-router.delete("/:idVehicle", deleteVehicle);
+router.delete("/:id", deleteVehicle);
 
 export default router;
