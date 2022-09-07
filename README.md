@@ -4,7 +4,7 @@ Back-end API RestFul to shippify challenge
 
 ## Specifications
 
-- Backend Framework: NodeJs
+- Backend Framework: NodeJs v12.22.12
 - Server Framework: Express
 - DB engine: MySQL
 - ORM: Sequelize
