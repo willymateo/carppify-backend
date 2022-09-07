@@ -1,5 +1,5 @@
+import { DataTypes, Sequelize } from "sequelize";
 import { sequelize } from "../connection.js";
-import { DataTypes } from "sequelize";
 
 const Company = sequelize.define(
   "company",
@@ -34,42 +34,13 @@ const Company = sequelize.define(
     creation_date: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal("CURRENT_TIMESTAMP"),
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
     },
   },
   {
     sequelize,
     tableName: "company",
     timestamps: false,
-    indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [{ name: "id" }],
-      },
-      {
-        name: "name_unique",
-        unique: true,
-        using: "BTREE",
-        fields: [{ name: "name" }],
-      },
-      {
-        name: "name_idx",
-        using: "BTREE",
-        fields: [{ name: "name" }],
-      },
-      {
-        name: "city_idx",
-        using: "BTREE",
-        fields: [{ name: "city" }],
-      },
-      {
-        name: "creation_date_idx",
-        using: "BTREE",
-        fields: [{ name: "creation_date" }],
-      },
-    ],
   }
 );
 
