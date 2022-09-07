@@ -10,7 +10,7 @@ const getVehicles = async (req, res) => {
     }
 
     const vehicles = await driver.getVehicles({
-      attributes: { exclude: "driver_id" },
+      attributes: { exclude: ["driver_id"] },
     });
 
     return res.status(200).send(vehicles);
