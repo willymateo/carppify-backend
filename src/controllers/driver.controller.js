@@ -1,4 +1,3 @@
-import { Vehicle } from "../db/models/vehicle.js";
 import { Driver } from "../db/models/driver.js";
 
 const getVehicles = async (req, res) => {
@@ -10,11 +9,10 @@ const getVehicles = async (req, res) => {
       return res.status(404).send({ error: "Driver not found" });
     }
 
-    const vehicles = await Vehicle.findAll({
-      where: {
-        driver_id: id,
-      },
+    const vehicles = await driver.getVehicles({
+      attributes: { exclude: "driver_id" },
     });
+
     return res.status(200).send(vehicles);
   } catch (error) {
     console.log(
