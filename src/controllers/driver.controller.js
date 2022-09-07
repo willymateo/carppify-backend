@@ -9,9 +9,7 @@ const getVehicles = async (req, res) => {
       return res.status(404).send({ error: "Driver not found" });
     }
 
-    const vehicles = await driver.getVehicles({
-      attributes: { exclude: ["driver_id"] },
-    });
+    const vehicles = await driver.getVehicles();
 
     return res.status(200).send(vehicles);
   } catch (error) {
