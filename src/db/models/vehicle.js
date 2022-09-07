@@ -1,5 +1,6 @@
+import { DataTypes, Sequelize } from "sequelize";
 import { sequelize } from "../connection.js";
-import { DataTypes } from "sequelize";
+import { Driver } from "./driver.js";
 
 const Vehicle = sequelize.define(
   "vehicle",
@@ -39,37 +40,17 @@ const Vehicle = sequelize.define(
     creation_date: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: DataTypes.NOW,
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
     },
   },
   {
     sequelize,
     tableName: "vehicle",
     timestamps: false,
-    indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [{ name: "id" }],
-      },
-      {
-        name: "type_idx",
-        using: "BTREE",
-        fields: [{ name: "type" }],
-      },
-      {
-        name: "creation_date_idx",
-        using: "BTREE",
-        fields: [{ name: "creation_date" }],
-      },
-      {
-        name: "driver_key",
-        using: "BTREE",
-        fields: [{ name: "driver_id" }],
-      },
-    ],
   }
 );
+
+Vehicle.belongsTo(Driver, { foreignKey: "driver_id" });
+Driver.hasMany(Vehicle, { foreignKey: "driver_id" });
 
 export { Vehicle };

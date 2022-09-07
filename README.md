@@ -4,7 +4,7 @@ Back-end API RestFul to shippify challenge
 
 ## Specifications
 
-- Backend Framework: NodeJs
+- Backend Framework: NodeJs v12.22.12
 - Server Framework: Express
 - DB engine: MySQL
 - ORM: Sequelize
@@ -33,6 +33,7 @@ DEV_DATABASE=
 DEV_DB_HOST=
 DEV_DB_PORT=
 
+#Production
 PROD_DB_USERNAME=
 PROD_DB_PASSWORD=
 PROD_DATABASE=
