@@ -1,15 +1,24 @@
+import { Vehicle } from "../db/models/vehicle.js";
 import { Driver } from "../db/models/driver.js";
 
 const getVehicles = async (req, res) => {
   try {
     const { id } = req.params;
+    let { limit, offset } = req.query;
+    limit = limit ? parseInt(limit) : 5;
+    offset = offset ? parseInt(offset) : 0;
     const driver = await Driver.findByPk(id);
 
     if (!driver) {
       return res.status(404).send({ error: "Driver not found" });
     }
 
-    const vehicles = await driver.getVehicles();
+    const vehicles = await Vehicle.findAndCountAll({
+      where: { driver_id: id },
+      limit,
+      offset,
+      order: [["id", "ASC"]],
+    });
 
     return res.status(200).send(vehicles);
   } catch (error) {
